@@ -1,0 +1,35 @@
+<body id="iijt">
+  <form action="/teste" method="post" enctype="application/json" id="iqz7l"><input type="text" name="campo"
+      placeholder="Digite aqui" /><input type="text" name="campo" placeholder="Digite aqui" /><button
+      type="submit">Enviar</button></form>
+</body>
+<script>var props = { "iqz7l": { "attributes": { "action": "/teste", "method": "post", "enctype": "application/json", "id": "iqz7l" }, "draggable": true, "droppable": true } };
+  var ids = Object.keys(props).map(function (id) { return '#' + id }).join(',');
+  var els = document.querySelectorAll(ids);
+  for (var i = 0, len = els.length; i < len; i++) {
+    var el = els[i];
+    (function (props) {
+      const element = this;
+      this.submitFun = function (event) {
+        const attrs = props.attributes;
+        if (attrs.enctype !== "application/json") {
+          return;
+        }
+        event.preventDefault();
+        const formData = new FormData(element);
+        const action = attrs.action;
+        const jsonData = {};
+        formData.forEach((value, key) => {
+          jsonData[key] = value;
+        });
+        fetch(action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(jsonData)
+        });
+      };
+      this.addEventListener("submit", this.submitFun);
+    }.bind(el))(props[el.id]);
+  }</script>
