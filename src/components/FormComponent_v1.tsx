@@ -125,11 +125,18 @@ export function FormComponent(editor: Editor) {
                             { value: 'application/json', name: 'JSON', id: 'json' },
                             { value: 'application/x-www-form-urlencoded', name: 'Form URL Encoded', id: 'urlencoded' },
                             { value: 'multipart/form-data', name: 'Multipart (File Upload)', id: 'form-data' },
-                            { value: 'text/plain', name: 'Texto', id:  'text'}
+                            { value: 'text/plain', name: 'Texto', id: 'text' }
                         ]
                     }
                 ]
             },
+            toJSON(...args) {
+                const { model: defaultModel } = editor.DomComponents.getType('default');
+                const baseJSON = defaultModel.prototype.toJSON.apply(this, args);
+                return {
+                    ...baseJSON,
+                };
+            }
         },
         view: {
             events: {
@@ -137,28 +144,28 @@ export function FormComponent(editor: Editor) {
             },
             handleSubmit(event) {
                 const attrs = this.model.getAttributes();
-            
+
                 if (attrs.enctype !== 'application/json') {
                     return;
                 }
-                
+
                 event.preventDefault(); // Evita o envio padrão do formulário
-                
+
                 const formData = new FormData(this.model.view.el);
                 const action = attrs.action;
-                
+
                 // Converte FormData para JSON
                 const jsonData = {};
-                
+
                 formData.forEach((value, key) => {
                     jsonData[key] = value;
                 });
-                
+
                 // Envia como JSON
                 fetch(action, {
                     method: 'POST',
                     headers: {
-                    'Content-Type': 'application/json'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(jsonData)
                 })

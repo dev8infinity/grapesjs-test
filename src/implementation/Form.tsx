@@ -1,5 +1,5 @@
 import { Editor } from 'grapesjs';
-import Component from './Component';
+import Component from './Componentv1';
 
 export function Form(editor: Editor) {
 
@@ -133,34 +133,49 @@ export function Form(editor: Editor) {
                 },
             }
         },
-        onSubmit: function (event) {
-            const attrs = props.attributes;
-        
-            if (attrs.enctype !== 'application/json') {
-                return;
-            }
-            
-            event.preventDefault(); // Evita o envio padrão do formulário
-            
-            const formData = new FormData(element);
-            const action = attrs.action;
-            
-            // Converte FormData para JSON
-            const jsonData = {};
-            
-            formData.forEach((value, key) => {
-                jsonData[key] = value;
-            });
-            
-            // Envia como JSON
-            fetch(action, {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json'
+        events: [
+            {
+                type: 'submit',
+                handler: function (event) {
+                    const attrs = props.attributes;
+                
+                    if (attrs.enctype !== 'application/json') {
+                        return;
+                    }
+                    
+                    event.preventDefault(); // Evita o envio padrão do formulário
+                    
+                    const formData = new FormData(element);
+                    const action = attrs.action;
+                    
+                    // Converte FormData para JSON
+                    const jsonData = {};
+                    
+                    formData.forEach((value, key) => {
+                        jsonData[key] = value;
+                    });
+                    
+                    // Envia como JSON
+                    fetch(action, {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(jsonData)
+                    })
+                } ,
+                action: 'submit',
+                value: ''
+            },
+            {
+                type: 'click',
+                handler: function (event) {
+                    alert('hi');
                 },
-                body: JSON.stringify(jsonData)
-            })
-        } 
+                action: 'redirect',
+                value: 'https://google.com'
+            }
+        ]
     });
 
 

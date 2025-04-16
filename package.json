@@ -14,7 +14,8 @@
     "@grapesjs/studio-sdk": "^1.0.38",
     "grapesjs": "^0.22.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
