@@ -280,16 +280,6 @@ export function TestComponent(editor: Editor) {
     });
 
 
-    editor.BlockManager.add('column', {
-        label: 'Coluna',
-        category: 'Meus Componentes',
-        attributes: { class: 'fa fa-square' },
-        content: {
-            type: 'column',
-
-        }
-    });
-
     editor.BlockManager.add('icon-grid', {
         label: 'Icon Grid',
         category: 'Meus Componentes',

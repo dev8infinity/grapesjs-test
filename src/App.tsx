@@ -1,6 +1,6 @@
 import grapesjs, { Editor } from 'grapesjs';
 import GjsEditor, { WithEditor } from '@grapesjs/react';
-import { IconGridComponent, FormComponent, HeaderComponent, TestComponent} from './components';
+import { IconGridComponent, FormComponent, HeaderComponent, TestComponent, UtilityComponents} from './components';
 import { Form } from './implementation/Form';
 
 
@@ -22,10 +22,11 @@ export default function DefaultEditor() {
         //  componentFirst: false
         // },
         plugins: [
+          UtilityComponents,
           // IconGridComponent, 
           // HeaderComponent, 
           FormComponent, 
-          TestComponent,
+          // TestComponent,
           // Form,
         ]
       }}

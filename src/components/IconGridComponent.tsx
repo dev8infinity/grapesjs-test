@@ -156,37 +156,6 @@ export function IconGridComponent(editor: Editor) {
     // console.log(editor.DomComponents.getTypes())
 
 
-    // ----------------------------------------------------------------------------
-    // 2) COMPONENTE column
-    // ----------------------------------------------------------------------------
-    editor.DomComponents.addType('column', {
-        model: {
-            defaults: {
-                tagName: 'div',
-                draggable: true,
-                droppable: true, // Allows nesting components inside
-                attributes: { class: 'column' },
-                stylable: true,
-                // Optional: Add some default styles
-                styles: `
-              .column {
-                flex: 1;
-                padding: 10px;
-                min-height: 50px;
-              }
-            `,
-                // Optional: Custom traits or properties you want for this component
-                traits: [
-                    {
-                        type: 'text',
-                        label: 'Custom Class',
-                        name: 'custom-class'
-                    }
-                ]
-            },
-        },
-
-    });
 
     // ----------------------------------------------------------------------------
     // 3) COMPONENTE icon-grid
@@ -253,7 +222,9 @@ export function IconGridComponent(editor: Editor) {
                     return;
                 }
                 if (childCount < components.length) {
-                    this.set
+                    while (components.length > childCount) {
+                        components.pop();
+                    }
                 } else if (childCount > components.length) {
                     const diff = childCount - components.length;
                     for (let i = 0; i < diff; i++) {
@@ -285,16 +256,6 @@ export function IconGridComponent(editor: Editor) {
         }
     });
 
-
-    editor.BlockManager.add('column', {
-        label: 'Coluna',
-        category: 'Meus Componentes',
-        attributes: { class: 'fa fa-square' },
-        content: {
-            type: 'column',
-
-        }
-    });
 
     editor.BlockManager.add('icon-grid', {
         label: 'Icon Grid',
